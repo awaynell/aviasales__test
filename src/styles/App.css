@@ -278,6 +278,34 @@ input[type="checkbox" i] {
   position: relative;
   animation-delay: -0.5s;
 }
+.showMore {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  cursor: pointer;
+  margin-left: 20px;
+  border-radius: 5px;
+  padding: 10px 20px 10px 20px;
+  color: white;
+  text-align: center;
+  background-color: #2196f3;
+  margin-top: 20px;
+}
+
+.ticket-enter {
+  opacity: 0;
+}
+.ticket-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.ticket-exit {
+  opacity: 1;
+}
+.ticket-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
 @keyframes lds-ripple {
   0% {
     position: relative;

@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap");
+@import "./filter.scss";
+@import "./sort.scss";
+@import "./tickets.scss";
+body {
+  background-color: #f3f7fa;
+  font-family: "Open Sans", Courier, monospace;
+  font-style: 600;
+  text-transform: uppercase;
+}
+input[type="checkbox" i] {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #9abbce;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin: 0 10px 0 0;
+}
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  .logo {
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+}
+.app-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+}
+.wrapper {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+}

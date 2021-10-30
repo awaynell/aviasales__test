@@ -1,0 +1,79 @@
+.filter {
+  width: 25vw;
+  padding: 9px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: inline-flex;
+  flex-direction: column;
+  .filter-title {
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 22px;
+    margin-left: 15px;
+  }
+}
+.filter-items {
+  display: flex;
+  flex-direction: column;
+  text-transform: none;
+}
+.filter-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 70px 10px 15px;
+}
+.filter-item:hover {
+  background: #f1fcff;
+}
+.filter-label {
+  font-size: 13px;
+  line-height: 20px;
+  cursor: pointer;
+}
+.filter-all {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.filter-all:checked {
+  background: url(../assets/Shape.svg) no-repeat center;
+  background-size: 12px 8px;
+  border: 1px solid #2196f3;
+}
+.filter-without {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.filter-without:checked {
+  background: url(../assets/Shape.svg) no-repeat center;
+  background-size: 12px 8px;
+  border: 1px solid #2196f3;
+}
+.filter-one {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.filter-one:checked {
+  background: url(../assets/Shape.svg) no-repeat center;
+  background-size: 12px 8px;
+  border: 1px solid #2196f3;
+}
+.filter-two {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.filter-two:checked {
+  background: url(../assets/Shape.svg) no-repeat center;
+  background-size: 12px 8px;
+  border: 1px solid #2196f3;
+}
+.filter-three {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.filter-three:checked {
+  background: url(../assets/Shape.svg) no-repeat center;
+  background-size: 12px 8px;
+  border: 1px solid #2196f3;
+}

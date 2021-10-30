@@ -1,0 +1,34 @@
+.sort {
+  margin-left: 20px;
+  display: flex;
+  background-color: white;
+  border: 1px solid #dfe5ec;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sortByLow,
+.sortByFast {
+  flex: 1 1 auto;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  margin: 0;
+  font-weight: normal;
+  padding: 15px;
+  border-right: 1px solid #dfe5ec;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+.sortByLow:hover,
+.sortByFast:hover {
+  background: #2196f3;
+  color: white;
+}
+.active {
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}

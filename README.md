@@ -1,6 +1,6 @@
 # Тестовое задание от Aviasales (https://github.com/KosyanMedia/test-tasks/tree/master/aviasales_frontend)
 
-Проект создан на React.
+Проект создан на React + SCSS.
 
 ## Available Scripts
 

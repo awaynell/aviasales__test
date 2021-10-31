@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useCallback } from "react/cjs/react.development";
 import logo from "./assets/Logo.png";
 import getDate from "./functions/getDate";
 import { getDurationHours, getDurationMinutes } from "./functions/getDurationTime";
@@ -64,20 +63,6 @@ function App() {
     return myTick;
   };
 
-  // const sortTicketsByPrice = (tickets) => {
-  //   return tickets
-  //     .map((sorter) => sorter)
-  //     .sort((a, b) => (a.price > b.price ? 1 : -1))
-  //     .slice(0, 50);
-  // };
-
-  // const sortTicketsByFast = (tickets) => {
-  //   return tickets
-  //     .map((sorter) => sorter)
-  //     .sort((a, b) => (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration ? 1 : -1))
-  //     .slice(0, 50);
-  // };
-
   // fetch searchID and ticketsData
   useEffect(() => {
     fetch("https://front-test.beta.aviasales.ru/search")
@@ -109,6 +94,7 @@ function App() {
       getTickets();
     }
   }, [searchId, tickets, stop]);
+
   //sort tickets by sortButton
   useEffect(() => {
     if (!loading && sortActive.lowPrice) {

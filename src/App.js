@@ -65,6 +65,8 @@ function App() {
     }
   }, [loading, sortActive, filter, limit]);
 
+  let ticket = tickets.slice(0, limit === tickets.length ? tickets.length : limit);
+
   return (
     <div className="App">
       <div className="app-wrapper">

@@ -224,7 +224,7 @@
 
 .ticket-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: 300ms ease-in;
 }
 
 .ticket-exit {
@@ -233,7 +233,7 @@
 
 .ticket-exit-active {
   opacity: 0;
-  transition: opacity 500ms ease-out;
+  transition: 1000ms ease-out;
 }
 
 @keyframes lds-ellipsis1 {

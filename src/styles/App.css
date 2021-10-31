@@ -7,6 +7,7 @@
   border-radius: 5px;
   display: inline-flex;
   flex-direction: column;
+  animation: someAnim 1.5s cubic-bezier(0, 0.2, 0.8, 1);
 }
 .filter .filter-title {
   color: #4a4a4a;
@@ -101,6 +102,7 @@
   border-radius: 5px;
   align-items: center;
   justify-content: center;
+  animation: someAnim 1s cubic-bezier(0, 0.2, 0.8, 1);
 }
 
 .sortByLow,
@@ -119,7 +121,6 @@
 
 .sortByLow:hover,
 .sortByFast:hover {
-  border-right: none;
   background: #2196f3;
   color: white;
 }
@@ -130,6 +131,7 @@
   border: none;
   border-radius: 5px 0 0 5px;
 }
+
 .activeR {
   background: #2196f3;
   color: white;
@@ -146,10 +148,10 @@
 }
 
 .ticket-info {
+  align-items: center;
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .price {
@@ -159,16 +161,20 @@
   color: #2196f3;
 }
 
+.aviaLogo {
+  margin-right: 10px;
+}
+
 .ticket-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 0 15px 15px 15px;
 }
+
 .ticket-deps {
-  width: 10vw;
-  white-space: nowrap;
+  margin-left: 10px;
 }
+
 .ticket-dep span {
   font-size: 12px;
   color: #a0b0b9;
@@ -180,9 +186,7 @@
   color: #4a4a4a;
   font-weight: bold;
 }
-.ticket-dur {
-  width: 10vw;
-}
+
 .ticket-dur__title {
   font-size: 12px;
   line-height: 18px;
@@ -196,9 +200,11 @@
   color: #4a4a4a;
   font-weight: bold;
 }
+
 .ticket-transf {
   width: 10vw;
 }
+
 .ticket-transf__title {
   font-size: 12px;
   line-height: 18px;
@@ -206,13 +212,64 @@
 }
 
 .ticket-transf__info {
-  white-space: pre;
   font-size: 14px;
   line-height: 21px;
   color: #4a4a4a;
   font-weight: bold;
 }
 
+.ticket-enter {
+  opacity: 0;
+}
+
+.ticket-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.ticket-exit {
+  opacity: 1;
+}
+
+.ticket-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+@keyframes someAnim {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 body {
   background-color: #f3f7fa;
   font-family: "Open Sans", Courier, monospace;
@@ -220,7 +277,7 @@ body {
   text-transform: uppercase;
 }
 
-input[type="checkbox" i] {
+input[type=checkbox i] {
   width: 20px;
   height: 20px;
   border: 1px solid #9abbce;
@@ -237,7 +294,6 @@ input[type="checkbox" i] {
 .app-wrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
 }
 .app-wrapper .logo {
   margin: 0 auto;
@@ -249,36 +305,9 @@ input[type="checkbox" i] {
   display: flex;
   align-items: flex-start;
   justify-content: start;
+  margin-bottom: 20px;
 }
-
-.wrapper {
-  width: 60vw;
-  display: flex;
-  flex-direction: column;
-}
-.loader {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.lds-ripple {
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ripple div {
-  position: relative;
-  border: 4px solid rgb(48, 84, 247);
-  opacity: 1;
-  border-radius: 50%;
-  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-.lds-ripple div:nth-child(2) {
-  position: relative;
-  animation-delay: -0.5s;
-}
-.showMore {
+.app-inner .showMore {
   font-weight: 500;
   font-size: 12px;
   line-height: 20px;
@@ -292,37 +321,54 @@ input[type="checkbox" i] {
   margin-top: 20px;
 }
 
-.ticket-enter {
-  opacity: 0;
+.loader {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.ticket-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
-.ticket-exit {
-  opacity: 1;
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #2196f3;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
-.ticket-exit-active {
-  opacity: 0;
-  transition: opacity 500ms ease-out;
+
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
 }
-@keyframes lds-ripple {
-  0% {
-    position: relative;
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    position: relative;
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
+
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+.wrapper {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=App.css.map */

@@ -6,6 +6,7 @@
   border-radius: 5px;
   align-items: center;
   justify-content: center;
+  animation: someAnim 1s cubic-bezier(0, 0.2, 0.8, 1);
 }
 
 .sortByLow,
@@ -26,9 +27,15 @@
   background: #2196f3;
   color: white;
 }
-.active {
+.activeL {
   background: #2196f3;
   color: white;
   border: none;
   border-radius: 5px 0 0 5px;
+}
+.activeR {
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
 }

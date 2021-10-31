@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import logo from "./assets/Logo.png";
-import getDate from "./functions/getDate";
-import { getDurationHours, getDurationMinutes } from "./functions/getDurationTime";
-import { numTransf } from "./functions/numTranf";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./styles/App.css";
+import TicketsList from "./components/TicketsList";
+import { allHandler } from "./functions/allHandler";
+import { filtTick } from "./functions/filtTick";
 
 function App() {
   let [searchId, setSearchId] = useState("");
@@ -21,47 +20,6 @@ function App() {
     three: true,
   });
   let [limit, setLimit] = useState(5);
-
-  const filtTick = (tickArr) => {
-    let arr = [];
-    tickArr.filter((current) => {
-      if (filter.all) {
-        arr.push(current);
-        allSorter(arr);
-        return true;
-      }
-      if (filter.without && current.segments[0].stops.length === 0 && current.segments[1].stops.length === 0) {
-        arr.push(current);
-        return true;
-      }
-      if (filter.one && current.segments[0].stops.length === 1 && current.segments[1].stops.length === 1) {
-        arr.push(current);
-        return true;
-      }
-      if (filter.two && current.segments[0].stops.length === 2 && current.segments[1].stops.length === 2) {
-        arr.push(current);
-        return true;
-      }
-      if (filter.three && current.segments[0].stops.length === 3 && current.segments[1].stops.length === 3) {
-        arr.push(current);
-        return true;
-      }
-      allSorter(arr);
-    });
-  };
-
-  const allSorter = (ticketsArr) => {
-    const myTick = [...ticketsArr];
-    if (sortActive.lowPrice) {
-      setSortTick(myTick.sort((a, b) => (a.price > b.price ? 1 : -1)));
-    }
-    if (sortActive.faster) {
-      setSortTick(
-        myTick.sort((a, b) => (a.segments[0].duration + a.segments[1].duration > b.segments[0].duration + b.segments[1].duration ? 1 : -1))
-      );
-    }
-    return myTick;
-  };
 
   // fetch searchID and ticketsData
   useEffect(() => {
@@ -98,40 +56,14 @@ function App() {
   //sort tickets by sortButton
   useEffect(() => {
     if (!loading && sortActive.lowPrice) {
-      let ticket = tickets.slice(0, limit);
-      filtTick(ticket);
+      let ticket = tickets.slice(0, limit === tickets.length ? tickets.length : limit);
+      filtTick(ticket, filter, sortActive, setSortTick);
     }
     if (!loading && sortActive.faster) {
-      let ticket = tickets.slice(0, limit);
-      filtTick(ticket);
+      let ticket = tickets.slice(0, limit === tickets.length ? tickets.length : limit);
+      filtTick(ticket, filter, sortActive, setSortTick);
     }
   }, [loading, sortActive, filter, limit]);
-
-  const getArriveDate = (dep, duration) => {
-    let date = new Date(dep);
-    date.setMinutes(date.getMinutes() + duration);
-    return getDate(date);
-  };
-
-  const allHandler = () => {
-    if (!filter.all) {
-      setFilter({
-        all: true,
-        without: true,
-        one: true,
-        two: true,
-        three: true,
-      });
-    } else {
-      setFilter({
-        all: false,
-        without: false,
-        one: false,
-        two: false,
-        three: false,
-      });
-    }
-  };
 
   return (
     <div className="App">
@@ -142,7 +74,7 @@ function App() {
             <h3 className="filter-title">Количество пересадок</h3>
             <div className="filter-items">
               <div className="filter-item">
-                <input className="filter-all" type="checkbox" id="filter-all" onChange={() => allHandler()} checked={filter.all} />
+                <input className="filter-all" type="checkbox" id="filter-all" onChange={() => allHandler(filter, setFilter)} checked={filter.all} />
                 <label className="filter-label" htmlFor="filter-all">
                   Все
                 </label>
@@ -208,85 +140,15 @@ function App() {
             </div>
             {loading === true ? (
               <div className="loader">
-                <div className="lds-ripple">
+                <div class="lds-ellipsis">
+                  <div></div>
+                  <div></div>
                   <div></div>
                   <div></div>
                 </div>
               </div>
             ) : (
-              <TransitionGroup className="tickets">
-                {sortTick.map((info) => {
-                  return (
-                    <CSSTransition key={info.segments[0].date} timeout={500} classNames="ticket">
-                      <div className="ticket">
-                        <div className="ticket-info">
-                          <div className="price">{info.price} р</div>
-                          <img src={`https://pics.avs.io/99/36/${info.carrier}.png`} className="aviaLogo"></img>
-                        </div>
-                        <div className="ticket-wrapper">
-                          <div className="ticket-deps">
-                            <div className="ticket-dep">
-                              <span>{info.segments[0].origin} - </span> <span>{info.segments[0].destination}</span>
-                            </div>
-                            <div className="ticket-depTime">
-                              <span>{getDate(info.segments[0].date)}</span>
-                              <span> - {getArriveDate(info.segments[0].date, info.segments[0].duration)}</span>
-                            </div>
-                          </div>
-                          <div className="ticket-dur">
-                            <div className="ticket-dur__title">В пути</div>
-                            <div className="ticket-dur__time">
-                              <span>{getDurationHours(info.segments[0].duration)}ч </span>
-                              <span>{getDurationMinutes(info.segments[0].duration)}мин</span>
-                            </div>
-                          </div>
-                          <div className="ticket-transf">
-                            {info.segments[0].stops.length < 2 ? (
-                              numTransf(info.segments[0].stops.length)
-                            ) : (
-                              <div className="ticket-transf__title">{info.segments[0].stops.length} пересадки</div>
-                            )}
-                            <div className="ticket-transf__info">{info.segments[0].stops.join(", ")}</div>
-                          </div>
-                        </div>
-                        <div className="ticket-wrapper">
-                          <div className="ticket-deps">
-                            <div className="ticket-dep">
-                              <span>{info.segments[1].origin} - </span> <span>{info.segments[1].destination}</span>
-                            </div>
-                            <div className="ticket-depTime">
-                              <span>{getDate(info.segments[1].date)}</span>
-                              <span> - {getArriveDate(info.segments[1].date, info.segments[1].duration)}</span>
-                            </div>
-                          </div>
-                          <div className="ticket-dur">
-                            <div className="ticket-dur__title">В пути</div>
-                            <div className="ticket-dur__time">
-                              <span>{getDurationHours(info.segments[1].duration)}ч </span>
-                              <span>{getDurationMinutes(info.segments[1].duration)}мин</span>
-                            </div>
-                          </div>
-                          <div className="ticket-transf">
-                            {info.segments[1].stops.length < 2 ? (
-                              numTransf(info.segments[1].stops.length)
-                            ) : (
-                              <div className="ticket-transf__title">{info.segments[1].stops.length} пересадки</div>
-                            )}
-                            <div className="ticket-transf__info">{info.segments[1].stops.join(", ")}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </CSSTransition>
-                  );
-                })}
-                {filter.all ? (
-                  <div class="showMore" onClick={() => setLimit(limit + 5)}>
-                    Показать еще 5 билетов!
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </TransitionGroup>
+              <TicketsList obj={sortTick} filter={filter} limit={limit} setLimit={setLimit}></TicketsList>
             )}
           </div>
         </div>

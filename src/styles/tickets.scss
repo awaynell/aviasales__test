@@ -6,6 +6,7 @@
   border-radius: 5px;
 }
 .ticket-info {
+  align-items: center;
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -16,10 +17,16 @@
   line-height: 24px;
   color: #2196f3;
 }
+.aviaLogo {
+  margin-right: 10px;
+}
 .ticket-wrapper {
   display: flex;
   justify-content: space-between;
   padding: 0 15px 15px 15px;
+}
+.ticket-deps {
+  margin-left: 10px;
 }
 .ticket-dep {
   span {
@@ -49,6 +56,9 @@
     font-weight: bold;
   }
 }
+.ticket-transf {
+  width: 10vw;
+}
 .ticket-transf__title {
   font-size: 12px;
   line-height: 18px;
@@ -59,4 +69,18 @@
   line-height: 21px;
   color: #4a4a4a;
   font-weight: bold;
+}
+.ticket-enter {
+  opacity: 0;
+}
+.ticket-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.ticket-exit {
+  opacity: 1;
+}
+.ticket-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
 }

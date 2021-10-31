@@ -6,6 +6,7 @@
   border-radius: 5px;
   display: inline-flex;
   flex-direction: column;
+  animation: someAnim 1.5s cubic-bezier(0, 0.2, 0.8, 1);
   .filter-title {
     color: #4a4a4a;
     font-weight: 600;

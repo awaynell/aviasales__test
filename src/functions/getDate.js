@@ -10,3 +10,9 @@ var options = {
   // month: "numeric",
   // year: "numeric",
 };
+
+export const getArriveDate = (dep, duration) => {
+  let date = new Date(dep);
+  date.setMinutes(date.getMinutes() + duration);
+  return getDate(date);
+};
